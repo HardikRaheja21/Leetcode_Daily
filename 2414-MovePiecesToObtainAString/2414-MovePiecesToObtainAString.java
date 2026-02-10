@@ -1,0 +1,39 @@
+// Last updated: 2/10/2026, 3:13:10 PM
+class Solution {
+    public boolean canChange(String start, String target) {
+        String filteredStart = start.replace("_", "");
+        String filteredTarget = target.replace("_", "");
+
+        if(!filteredStart.equals(filteredTarget)){
+            return false;
+        }
+
+        int n = start.length();
+        int i = 0, j = 0;
+
+        while(i < n && j < n){
+            while(i < n && start.charAt(i) == '_') i++;
+            while(j < n && target.charAt(j) == '_') j++;
+
+            if(i == n || j == n){
+                break;
+            }
+
+            if(start.charAt(i) != target.charAt(j)){
+                return false;
+            }
+
+            if(start.charAt(i) == 'L' && i < j){
+                return false;
+            }
+
+            if(target.charAt(j) == 'R' && j < i){
+                return false;
+            }
+
+            i++;
+            j++;
+        }
+        return true;
+    }
+}
