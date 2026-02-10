@@ -1,0 +1,18 @@
+// Last updated: 2/10/2026, 3:14:16 PM
+class Solution {
+    public int maxResult(int[] nums, int k) {
+        int n = nums.length;
+        int[] dp = new int[n];
+        dp[0] = nums[0];
+        Deque<Integer> dq = new LinkedList<>();
+        dq.add(0);
+
+        for(int i = 1; i < n; i++){
+            while(!dq.isEmpty() && dq.peekFirst() < i - k) dq.pollFirst();
+            dp[i] = nums[i] + dp[dq.peekFirst()];
+            while(!dq.isEmpty() && dp[i] >= dp[dq.peekLast()]) dq.pollLast();
+            dq.addLast(i);
+        }
+        return dp[n - 1];
+    }
+}
